@@ -8,9 +8,15 @@ try:
     resp = client.create_table(
         TableName="ISBN",
         # Declare your Primary Key in the KeySchema argument
-        KeySchema=[{"AttributeName": "Date", "KeyType": "HASH"},],
+        KeySchema=[
+            {"AttributeName": "HashedDate", "KeyType": "HASH"},
+            {"AttributeName": "Date", "KeyType": "RANGE"},
+        ],
         # Any attributes used in KeySchema or Indexes must be declared in AttributeDefinitions
-        AttributeDefinitions=[{"AttributeName": "Date", "AttributeType": "S"},],
+        AttributeDefinitions=[
+            {"AttributeName": "HashedDate", "AttributeType": "S"},
+            {"AttributeName": "Date", "AttributeType": "S"},
+        ],
         # ProvisionedThroughput controls the amount of data you can read or write to DynamoDB per second.
         # You can control read and write capacity independently.
         ProvisionedThroughput={"ReadCapacityUnits": 1, "WriteCapacityUnits": 1},
